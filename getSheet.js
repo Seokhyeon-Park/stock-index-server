@@ -70,7 +70,7 @@ const refindSheetsData = (string) => {
     const firstSplit = string.split('google.visualization.Query.setResponse(')[1];
     const jsonData = JSON.parse(firstSplit.slice(0, firstSplit.length - 2));
 
-    return jsonData.table
+    return jsonData.table;
 }
 
 /**
@@ -87,9 +87,7 @@ const getIndex = async (key, dateRange) => {
     await getSheetId(key).then((data) => {
         const { cols, rows } = refindSheetsData(data);
         pre_index[key] = rows;
-    });
 
-    setTimeout(() => {
         // 조회 범위가 있는 경우
         if (dateRange !== undefined) {
             const dateRangeFrom = parseInt(dateRange.split('-')[0]);
@@ -126,7 +124,7 @@ const getIndex = async (key, dateRange) => {
                 });
             }
         }
-    }, 1000);
+    });
 
     return JSON.stringify(index);
 }
@@ -145,12 +143,10 @@ const getExchangeRate = async (name, dateRange) => {
     await getSheetId(cash).then((data) => {
         const { cols, rows } = refindSheetsData(data);
         pre_exchangeRate[cash] = rows;
-    });
 
-    setTimeout(() => {
         /**
-     * 환율
-     */
+         * 환율
+         */
         if (dateRange !== undefined) {
             const dateRangeFrom = parseInt(dateRange.split('-')[0]);
             const dateRangeTo = parseInt(dateRange.split('-')[1]);
@@ -173,7 +169,7 @@ const getExchangeRate = async (name, dateRange) => {
                 exchangeRate.push({ 'date': date, cash: rate });
             }
         }
-    }, 1000);
+    });
 
     return JSON.stringify(exchangeRate);
 }
