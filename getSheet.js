@@ -176,6 +176,8 @@ const getFullExchangeRate = async () => {
  * @returns 지수
  */
 const getIndex = async (key, dateRange) => {
+    const upKey = key.toUpperCase();
+
     // 조회 범위가 있는 경우
     if (dateRange !== undefined) {
         const dateRangeFrom = parseInt(dateRange.split('-')[0]);
@@ -183,7 +185,7 @@ const getIndex = async (key, dateRange) => {
 
         const index = new Array();
         
-        Object.entries(g_index[key]).forEach(([key, value]) => {
+        Object.entries(g_index[upKey]).forEach(([upKey, value]) => {
             if(dateRangeFrom < value.date && dateRangeTo > value.date) {
                 index.push(value);
             }
@@ -192,7 +194,7 @@ const getIndex = async (key, dateRange) => {
         return JSON.stringify(index);
     } else {
         // 조회 범위가 없는 경우
-        return JSON.stringify(g_index[key]);
+        return JSON.stringify(g_index[upKey]);
     }
 
 }
@@ -204,9 +206,7 @@ const getIndex = async (key, dateRange) => {
  * @returns 환율
  */
 const getExchangeRate = async (key, dateRange) => {
-    const cash = key.toUpperCase();
-    const pre_exchangeRate = new Object();
-    const exchangeRate = new Array();
+    const upKey = key.toUpperCase();
 
     /**
      * 환율
@@ -217,7 +217,7 @@ const getExchangeRate = async (key, dateRange) => {
 
         const index = new Array();
         
-        Object.entries(g_exchangeRate[key]).forEach(([key, value]) => {
+        Object.entries(g_exchangeRate[upKey]).forEach(([key, value]) => {
             if(dateRangeFrom < value.date && dateRangeTo > value.date) {
                 index.push(value);
             }
@@ -225,7 +225,7 @@ const getExchangeRate = async (key, dateRange) => {
         
         return JSON.stringify(index);
     } else {
-        return JSON.stringify(g_exchangeRate[key]);
+        return JSON.stringify(g_exchangeRate[upKey]);
     }
 }
 
