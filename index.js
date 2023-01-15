@@ -1,5 +1,6 @@
 const express = require('express');
 const { chkUrl, getApiList } = require('./getSheet');
+const logger = require("./logger");
 
 const datePattern = /[0-9]{8}-[0-9]{8}/;
 const app = express();
@@ -9,12 +10,16 @@ app.set('port', process.env.PORT || 3000);
 // API LIST
 // getApiList
 app.get('/api', (req, res) => {
+    logger.info('GET /api');
+
     const api = getApiList();
     res.json(api);
 });
 
 // Only index
 app.get('/:name', async (req, res) => {
+    logger.info(`GET /${req.params.name}`);
+
     // url 확인
     const chk = await chkUrl(req.params.name);
 
@@ -27,6 +32,8 @@ app.get('/:name', async (req, res) => {
 
 // index with date
 app.get('/:name/:date', async (req, res) => {
+    logger.info(`GET /${req.params.name}/${req.params.date}`);
+
     if (!datePattern.test(req.params.date)) {
         const error = new Error(`${req.params.date} format is wrong`);
         res.status(500).send({ error: error.toString() });
@@ -48,5 +55,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(app.get('port'), () => {
-    console.log("stock-index-server listening on port " + app.get('port'));
+    logger.info("stock-index-server listening on port " + app.get('port'));
 });
