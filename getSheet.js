@@ -208,9 +208,7 @@ const getIndex = async (key, dateRange) => {
 const getExchangeRate = async (key, dateRange) => {
     const upKey = key.toUpperCase();
 
-    /**
-     * 환율
-     */
+    // 조회 범위가 있는 경우
     if (dateRange !== undefined) {
         const dateRangeFrom = parseInt(dateRange.split('-')[0]);
         const dateRangeTo = parseInt(dateRange.split('-')[1]);
@@ -225,6 +223,7 @@ const getExchangeRate = async (key, dateRange) => {
         
         return JSON.stringify(index);
     } else {
+        // 조회 범위가 없는 경우
         return JSON.stringify(g_exchangeRate[upKey]);
     }
 }
