@@ -66,10 +66,9 @@ const getSheetId = async (sheetName) => {
  * @param {*} string 가공 전 데이터
  * @returns 가공된 데이터
  */
-const refindSheetsData = (string) => {
-    const firstSplit = string.split('google.visualization.Query.setResponse(')[1]
-
-    const jsonData = JSON.parse(firstSplit.slice(0, firstSplit.length - 2))
+const refindSheetsData = async (string) => {
+    const firstSplit = await string.split('google.visualization.Query.setResponse(')[1];
+    const jsonData = await JSON.parse(firstSplit.slice(0, firstSplit.length - 2));
 
     return jsonData.table
 }
@@ -85,9 +84,9 @@ const getIndex = async (key, dateRange) => {
     const index = new Array();
 
     // INDEX 저장
-    await getSheetId(key).then((data) => {
-        const { cols, rows } = refindSheetsData(data);
-        pre_index[key] = rows;
+    await getSheetId(key).then( async (data) => {
+        const { cols, rows } = await refindSheetsData(data);
+        pre_index[key] = await rows;
     });
 
     // 조회 범위가 있는 경우
@@ -141,9 +140,9 @@ const getExchangeRate = async (name, dateRange) => {
     const pre_exchangeRate = new Object();
     const exchangeRate = new Array();
 
-    await getSheetId(cash).then((data) => {
-        const { cols, rows } = refindSheetsData(data);
-        pre_exchangeRate[cash] = rows;
+    await getSheetId(cash).then( async (data) => {
+        const { cols, rows } = await refindSheetsData(data);
+        pre_exchangeRate[cash] = await rows;
     });
 
     /**
@@ -154,8 +153,6 @@ const getExchangeRate = async (name, dateRange) => {
         const dateRangeTo = parseInt(dateRange.split('-')[1]);
 
         for (const data of pre_exchangeRate[cash]) {
-            console.log(data);
-
             const date = getDate(data.c[2].f);
             const rate = data.c[3].v;
 
@@ -166,8 +163,6 @@ const getExchangeRate = async (name, dateRange) => {
         }
     } else {
         for (const data of pre_exchangeRate[cash]) {
-            console.log(data);
-
             const date = getDate(data.c[2].f);
             const rate = data.c[3].v;
 
