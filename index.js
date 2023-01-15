@@ -9,6 +9,10 @@ app.set('port', process.env.PORT || 3000);
 
 // API LIST
 // getApiList
+app.get('/', (req, res) => {
+    res.send("use /api");
+});
+
 app.get('/api', (req, res) => {
     logger.info('GET /api');
 
