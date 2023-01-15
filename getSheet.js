@@ -154,6 +154,8 @@ const getExchangeRate = async (name, dateRange) => {
         const dateRangeTo = parseInt(dateRange.split('-')[1]);
 
         for (const data of pre_exchangeRate[cash]) {
+            console.log(data);
+
             const date = getDate(data.c[2].f);
             const rate = data.c[3].v;
 
@@ -164,6 +166,8 @@ const getExchangeRate = async (name, dateRange) => {
         }
     } else {
         for (const data of pre_exchangeRate[cash]) {
+            console.log(data);
+
             const date = getDate(data.c[2].f);
             const rate = data.c[3].v;
 
