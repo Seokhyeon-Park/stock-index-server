@@ -89,17 +89,34 @@ const getIndex = async (key, dateRange) => {
         pre_index[key] = rows;
     });
 
-    // 조회 범위가 있는 경우
-    if (dateRange !== undefined) {
-        const dateRangeFrom = parseInt(dateRange.split('-')[0]);
-        const dateRangeTo = parseInt(dateRange.split('-')[1]);
+    setTimeout(() => {
+        // 조회 범위가 있는 경우
+        if (dateRange !== undefined) {
+            const dateRangeFrom = parseInt(dateRange.split('-')[0]);
+            const dateRangeTo = parseInt(dateRange.split('-')[1]);
 
-        for (const data of pre_index[key]) {
-            const date = getDate(data.c[0].f);
-            const [open, high, low, close] = getValue(data);
+            for (const data of pre_index[key]) {
+                const date = getDate(data.c[0].f);
+                const [open, high, low, close] = getValue(data);
 
-            // Date, Open, High, Low, Close
-            if (dateRangeFrom < date && dateRangeTo > date) {
+                // Date, Open, High, Low, Close
+                if (dateRangeFrom < date && dateRangeTo > date) {
+                    index.push({
+                        'date': date,
+                        'open': open,
+                        'high': high,
+                        'low': low,
+                        'close': close,
+                    });
+                }
+            }
+        } else {
+            // 조회 범위가 없는 경우
+            for (const data of pre_index[key]) {
+                const date = getDate(data.c[0].f);
+                const [open, high, low, close] = getValue(data);
+
+                // Date, Open, High, Low, Close
                 index.push({
                     'date': date,
                     'open': open,
@@ -109,24 +126,9 @@ const getIndex = async (key, dateRange) => {
                 });
             }
         }
-    } else {
-        // 조회 범위가 없는 경우
-        for (const data of pre_index[key]) {
-            const date = getDate(data.c[0].f);
-            const [open, high, low, close] = getValue(data);
 
-            // Date, Open, High, Low, Close
-            index.push({
-                'date': date,
-                'open': open,
-                'high': high,
-                'low': low,
-                'close': close,
-            });
-        }
-    }
-
-    return JSON.stringify(index);
+        return JSON.stringify(index);
+    }, 1000);
 }
 
 /**
@@ -145,33 +147,35 @@ const getExchangeRate = async (name, dateRange) => {
         pre_exchangeRate[cash] = rows;
     });
 
-    /**
+    setTimeout(() => {
+        /**
      * 환율
      */
-    if (dateRange !== undefined) {
-        const dateRangeFrom = parseInt(dateRange.split('-')[0]);
-        const dateRangeTo = parseInt(dateRange.split('-')[1]);
+        if (dateRange !== undefined) {
+            const dateRangeFrom = parseInt(dateRange.split('-')[0]);
+            const dateRangeTo = parseInt(dateRange.split('-')[1]);
 
-        for (const data of pre_exchangeRate[cash]) {
-            const date = getDate(data.c[2].f);
-            const rate = data.c[3].v;
+            for (const data of pre_exchangeRate[cash]) {
+                const date = getDate(data.c[2].f);
+                const rate = data.c[3].v;
 
-            // 처리 완료 데이터 저장
-            if (dateRangeFrom < date && dateRangeTo > date) {
-                exchangeRate.push({ 'date': date, 'exchangeRate': rate });
+                // 처리 완료 데이터 저장
+                if (dateRangeFrom < date && dateRangeTo > date) {
+                    exchangeRate.push({ 'date': date, 'exchangeRate': rate });
+                }
+            }
+        } else {
+            for (const data of pre_exchangeRate[cash]) {
+                const date = getDate(data.c[2].f);
+                const rate = data.c[3].v;
+
+                // 처리 완료 데이터 저장
+                exchangeRate.push({ 'date': date, cash: rate });
             }
         }
-    } else {
-        for (const data of pre_exchangeRate[cash]) {
-            const date = getDate(data.c[2].f);
-            const rate = data.c[3].v;
 
-            // 처리 완료 데이터 저장
-            exchangeRate.push({ 'date': date, cash: rate });
-        }
-    }
-
-    return JSON.stringify(exchangeRate);
+        return JSON.stringify(exchangeRate);
+    }, 1000);
 }
 
 /**
