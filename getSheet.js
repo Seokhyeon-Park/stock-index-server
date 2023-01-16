@@ -155,8 +155,6 @@ const getFullExchangeRate = async () => {
             // console.log("@KEY : ", key);
             // console.log("@size : ", Object.keys(pre_exchangeRate[key]).length);
 
-            let sample;
-
             for (const data of pre_exchangeRate[key]) {
                 const date = getDate(data.c[2].f);
                 const rate = data.c[3].v;
@@ -169,10 +167,9 @@ const getFullExchangeRate = async () => {
                 };
 
                 arr.push(obj);
-                sample = data.c[2];
             }
 
-            console.log("@sample : ", sample);
+            console.log("@last : ", arr[arr.length - 1]);
 
             exchangeRate[key] = arr;
         });
