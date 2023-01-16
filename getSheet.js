@@ -70,9 +70,9 @@ const getSheetId = async (sheetName) => {
  * @param {*} string 가공 전 데이터
  * @returns 가공된 데이터
  */
-const refindSheetsData = (string) => {
-    const firstSplit = string.split('google.visualization.Query.setResponse(')[1];
-    const jsonData = JSON.parse(firstSplit.slice(0, firstSplit.length - 2));
+const refindSheetsData = async (string) => {
+    const firstSplit = await string.split('google.visualization.Query.setResponse(')[1];
+    const jsonData = await JSON.parse(firstSplit.slice(0, firstSplit.length - 2));
 
     return jsonData.table;
 }
@@ -106,9 +106,9 @@ const getFullIndex = async () => {
 
     // INDEX 저장
     for (const key in URL_LIST) {
-        await getSheetId(key).then((data) => {
-            const { cols, rows } = refindSheetsData(data);
-            pre_index[key] = rows;
+        await getSheetId(key).then( async (data) => {
+            const { cols, rows } = await refindSheetsData(data);
+            pre_index[key] = await rows;
             const arr = new Array;
 
             for (const data of pre_index[key]) {
