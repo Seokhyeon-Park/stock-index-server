@@ -108,7 +108,7 @@ const getFullIndex = async () => {
     for (const key in URL_LIST) {
         await getSheetId(key).then( async (data) => {
             const { cols, rows } = await refindSheetsData(data);
-            pre_index[key] = rows;
+            pre_index[key] = await rows;
             const arr = new Array;
 
             for (const data of pre_index[key]) {
@@ -147,7 +147,7 @@ const getFullExchangeRate = async () => {
     for (const key in CASH_LIST) {
         await getSheetId(key).then( async (data) => {
             const { cols, rows } = await refindSheetsData(data);
-            pre_exchangeRate[key] = rows;
+            pre_exchangeRate[key] = await rows;
             const arr = new Array;
 
             for (const data of pre_exchangeRate[key]) {
