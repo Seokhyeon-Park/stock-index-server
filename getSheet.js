@@ -266,7 +266,7 @@ const main = () => {
     setInterval(() => {
         console.log("get data...(", g_time, ")");
         getAllData();
-    }, 1000 * 60 * 60);
+    }, 1000 * 60);
 }
 
 
