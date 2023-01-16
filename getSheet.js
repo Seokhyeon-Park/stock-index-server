@@ -92,8 +92,8 @@ const getAllData = async () => {
     const minutes = today.getMinutes();
     const seconds = today.getSeconds();
     g_time = year + '-' + month + '-' + date + " / " + hours + ":" + minutes + ":" + seconds;
-    getFullIndex();
-    getFullExchangeRate();
+    await getFullIndex();
+    await getFullExchangeRate();
 }
 
 /**
