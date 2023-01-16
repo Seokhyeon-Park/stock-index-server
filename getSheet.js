@@ -82,6 +82,8 @@ const refindSheetsData = (string) => {
  * 특정 시간마다 데이터를 저장.
  */
 const getAllData = async () => {
+    g_index = new Object();
+    g_exchangeRate = new Object();
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1
