@@ -111,25 +111,24 @@ const getFullIndex = async () => {
             const { cols, rows } = await refindSheetsData(data);
             pre_index[key] = await rows;
             const arr = new Array;
+            console.log("@KEY : ", key);
 
             for (const data of pre_index[key]) {
-                if(data.c[0].f !== undefined) {
-                    const date = getDate(data.c[0].f);
-                    const [open, high, low, close] = getValue(data);
-    
-                    // Date, Open, High, Low, Close
-                    const obj = {
-                        date: date,
-                        value: {
-                            'open': open,
-                            'high': high,
-                            'low': low,
-                            'close': close,
-                        }
-                    };
-                    
-                    arr.push(obj);
-                }
+                const date = getDate(data.c[0].f);
+                const [open, high, low, close] = getValue(data);
+
+                // Date, Open, High, Low, Close
+                const obj = {
+                    date: date,
+                    value: {
+                        'open': open,
+                        'high': high,
+                        'low': low,
+                        'close': close,
+                    }
+                };
+                
+                arr.push(obj);
             }
 
             index[key] = arr;
@@ -152,21 +151,20 @@ const getFullExchangeRate = async () => {
             const { cols, rows } = await refindSheetsData(data);
             pre_exchangeRate[key] = await rows;
             const arr = new Array;
+            console.log("@KEY : ", key);
 
             for (const data of pre_exchangeRate[key]) {
-                if(data.c[2].f !== undefined) {
-                    const date = getDate(data.c[2].f);
-                    const rate = data.c[3].v;
-    
-                    const obj = {
-                            date: date,
-                            value: {
-                                'rate': rate,
-                            }
-                    };
-    
-                    arr.push(obj);
-                }
+                const date = getDate(data.c[2].f);
+                const rate = data.c[3].v;
+
+                const obj = {
+                        date: date,
+                        value: {
+                            'rate': rate,
+                        }
+                };
+
+                arr.push(obj);
             }
 
             exchangeRate[key] = arr;
