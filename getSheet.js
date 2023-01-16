@@ -1,5 +1,6 @@
 const { getDigits, getDate, getValue } = require('./util');
 const axios = require('axios');
+const logger = require('./logger');
 
 const GOOGLE_SHEET_ID = '1AGejSJXHq90mDC53L6_vb_q07assK6YaN-xmGU8hcLk';
 
@@ -151,6 +152,7 @@ const getFullExchangeRate = async () => {
             const arr = new Array;
 
             for (const data of pre_exchangeRate[key]) {
+                logger.info("@data", data);
                 const date = getDate(data.c[2].f);
                 const rate = data.c[3].v;
 
