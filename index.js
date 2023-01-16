@@ -1,11 +1,13 @@
 const express = require('express');
 const { chkUrl, getApiList } = require('./getSheet');
 const logger = require("./logger");
+const cors = require('cors');
 
 const datePattern = /[0-9]{8}-[0-9]{8}/;
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
+app.use(cors());
 
 // API LIST
 // getApiList
