@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     try {
         res.send("use /api");
     } catch (error) {
-        console.logger(error);
+        logger.info(error);
     }
 });
 
@@ -26,7 +26,7 @@ app.get('/api', (req, res) => {
         const api = getApiList();
         res.json(api);
     } catch (error) {
-        console.logger(error);
+        logger.info(error);
     }
 });
 
@@ -44,7 +44,7 @@ app.get('/:name', async (req, res) => {
             res.status(500).send({ error: chk.toString() });
         }
     } catch (error) {
-        console.logger(error);
+        logger.info(error);
     }
 });
 
@@ -67,7 +67,7 @@ app.get('/:name/:date', async (req, res) => {
             }
         }
     } catch (error) {
-        console.logger(error);
+        logger.info(error);
     }
 });
 
