@@ -112,7 +112,7 @@ const getFullIndex = async () => {
             pre_index[key] = await rows;
             const arr = new Array;
             console.log("@KEY : ", key);
-            console.log("@size : ", Object.keys(pre_index).length);
+            console.log("@size : ", Object.keys(pre_index[key]).length);
 
             for (const data of pre_index[key]) {
                 const date = getDate(data.c[0].f);
@@ -153,7 +153,7 @@ const getFullExchangeRate = async () => {
             pre_exchangeRate[key] = await rows;
             const arr = new Array;
             console.log("@KEY : ", key);
-            console.log("@size : ", Object.keys(pre_exchangeRate).length);
+            console.log("@size : ", Object.keys(pre_exchangeRate[key]).length);
 
             for (const data of pre_exchangeRate[key]) {
                 const date = getDate(data.c[2].f);
