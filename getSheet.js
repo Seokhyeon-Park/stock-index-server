@@ -169,8 +169,6 @@ const getFullExchangeRate = async () => {
                 arr.push(obj);
             }
 
-            console.log("@last : ", arr[arr.length - 1]);
-
             exchangeRate[key] = arr;
         });
     }
