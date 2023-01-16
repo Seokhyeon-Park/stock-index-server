@@ -145,9 +145,9 @@ const getFullExchangeRate = async () => {
     const exchangeRate = new Array();
 
     for (const key in CASH_LIST) {
-        await getSheetId(key).then((data) => {
-            const { cols, rows } = refindSheetsData(data);
-            pre_exchangeRate[key] = rows;
+        await getSheetId(key).then( async (data) => {
+            const { cols, rows } = await refindSheetsData(data);
+            pre_exchangeRate[key] = await rows;
             const arr = new Array;
 
             for (const data of pre_exchangeRate[key]) {
