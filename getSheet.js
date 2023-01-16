@@ -110,9 +110,10 @@ const getFullIndex = async () => {
         await getSheetId(key).then( async (data) => {
             const { cols, rows } = await refindSheetsData(data);
             pre_index[key] = await rows;
+            console.log("@rows : ", rows);
             const arr = new Array;
-            console.log("@KEY : ", key);
-            console.log("@size : ", Object.keys(pre_index[key]).length);
+            // console.log("@KEY : ", key);
+            // console.log("@size : ", Object.keys(pre_index[key]).length);
 
             for (const data of pre_index[key]) {
                 const date = getDate(data.c[0].f);
@@ -151,9 +152,10 @@ const getFullExchangeRate = async () => {
         await getSheetId(key).then( async (data) => {
             const { cols, rows } = await refindSheetsData(data);
             pre_exchangeRate[key] = await rows;
+            console.log("@rows : ", rows);
             const arr = new Array;
-            console.log("@KEY : ", key);
-            console.log("@size : ", Object.keys(pre_exchangeRate[key]).length);
+            // console.log("@KEY : ", key);
+            // console.log("@size : ", Object.keys(pre_exchangeRate[key]).length);
 
             for (const data of pre_exchangeRate[key]) {
                 const date = getDate(data.c[2].f);
