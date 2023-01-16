@@ -242,8 +242,7 @@ const chkUrl = async (name, dateRange) => {
         res = await getIndex(name, dateRange);
     } else if (Object.keys(CASH_LIST).includes(name.toUpperCase())) {
         res = await getExchangeRate(name, dateRange);
-    }
-    else {
+    } else {
         res = new Error(`${name} is not found`);
     }
 
