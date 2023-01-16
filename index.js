@@ -27,9 +27,6 @@ app.get('/:name', async (req, res) => {
     // url 확인
     const chk = await chkUrl(req.params.name);
 
-    console.log("@chk", chk);
-    console.log("@chk type", typeof(chk));
-
     if (typeof (chk) === 'string') {
         res.json(chk);
     } else {
