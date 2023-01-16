@@ -12,46 +12,62 @@ app.use(cors());
 // API LIST
 // getApiList
 app.get('/', (req, res) => {
-    res.send("use /api");
+    try {
+        res.send("use /api");
+    } catch (error) {
+        console.logger(error);
+    }
 });
 
 app.get('/api', (req, res) => {
-    logger.info('GET /api');
+    try {
+        logger.info('GET /api');
 
-    const api = getApiList();
-    res.json(api);
+        const api = getApiList();
+        res.json(api);
+    } catch (error) {
+        console.logger(error);
+    }
 });
 
 // Only index
 app.get('/:name', async (req, res) => {
-    logger.info(`GET /${req.params.name}`);
+    try {
+        logger.info(`GET /${req.params.name}`);
 
-    // url 확인
-    const chk = await chkUrl(req.params.name);
-
-    if (typeof (chk) === 'string') {
-        res.json(chk);
-    } else {
-        res.status(500).send({ error: chk.toString() });
-    }
-});
-
-// index with date
-app.get('/:name/:date', async (req, res) => {
-    logger.info(`GET /${req.params.name}/${req.params.date}`);
-
-    if (!datePattern.test(req.params.date)) {
-        const error = new Error(`${req.params.date} format is wrong`);
-        res.status(500).send({ error: error.toString() });
-    } else {
         // url 확인
-        const chk = await chkUrl(req.params.name, req.params.date);
+        const chk = await chkUrl(req.params.name);
 
         if (typeof (chk) === 'string') {
             res.json(chk);
         } else {
             res.status(500).send({ error: chk.toString() });
         }
+    } catch (error) {
+        console.logger(error);
+    }
+});
+
+// index with date
+app.get('/:name/:date', async (req, res) => {
+    try {
+        logger.info(`GET /${req.params.name}/${req.params.date}`);
+
+        if (!datePattern.test(req.params.date)) {
+            const error = new Error(`${req.params.date} format is wrong`);
+            res.status(500).send({ error: error.toString() });
+        } else {
+            // url 확인
+            const chk = await chkUrl(req.params.name, req.params.date);
+
+            if (typeof (chk) === 'string') {
+                res.json(chk);
+            } else {
+                res.status(500).send({ error: chk.toString() });
+            }
+        }
+    } catch (error) {
+        console.logger(error);
     }
 });
 
