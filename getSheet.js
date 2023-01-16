@@ -246,8 +246,6 @@ const chkUrl = async (name, dateRange) => {
         res = new Error(`${name} is not found`);
     }
 
-    console.log("Res", res);
-
     return res;
 }
 
