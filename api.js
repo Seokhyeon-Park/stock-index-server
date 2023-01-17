@@ -60,7 +60,8 @@ const getGoogleSheet = async (sheetName) => {
             url: `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?sheet=${sheetName}`,
         });
 
-        logger.info("@google sheet status : ", response.status);
+        logger.info("@google sheet status : " + response.status);
+        logger.info("@google sheet size : " + Object.keys(response.data).length);
 
         return response.data;
     } catch (error) {
