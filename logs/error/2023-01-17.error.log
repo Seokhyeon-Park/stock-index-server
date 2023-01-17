@@ -35,3 +35,4 @@
 2023-01-17 14:13:41 [[stock-index-server]] error: TypeError: Cannot read properties of undefined (reading 'split')(GET /USD)
 2023-01-17 14:14:05 [[stock-index-server]] error: TypeError: string.split is not a function(GET /USD)
 2023-01-17 14:33:46 error: Error: 녜 route not found(GET /%EB%85%9C)
+2023-01-17 14:38:22 error: Error: KOSPIT route not found(GET /KOSPIT/20230101-20230112)

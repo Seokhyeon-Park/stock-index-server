@@ -49,7 +49,9 @@ const EXCHANGE_LIST = {
 }
 
 /**
- * Google sheet 가져오기.
+ * [Google sheet 가져오기]
+ * @param {*} sheetName 검색할 항목
+ * @returns 시트 데이터
  */
 const getGoogleSheet = async (sheetName) => {
     try {
@@ -87,6 +89,12 @@ const chkUrl = (key) => {
     return Object.keys(INDEX_LIST).includes(key.toUpperCase()) || Object.keys(EXCHANGE_LIST).includes(key.toUpperCase());
 }
 
+/**
+ * [지수 조회]
+ * @param {*} data 시트 데이터
+ * @param {*} date 검색 기간
+ * @returns 
+ */
 const getIndex = async (data, date) => {
     const arr = new Array;
     let hasDate = date !== undefined ? true : false;
@@ -141,6 +149,12 @@ const getIndex = async (data, date) => {
     return JSON.stringify(arr);
 }
 
+/**
+ * [환율 조회]
+ * @param {*} data 시트 데이터
+ * @param {*} date 검색 기간
+ * @returns 
+ */
 const getExchangeRate = async (data, date) => {
     const arr = new Array;
     let hasDate = date !== undefined ? true : false;
@@ -190,6 +204,12 @@ const getExchangeRate = async (data, date) => {
     return JSON.stringify(arr);
 }
 
+/**
+ * [API 조회]
+ * @param {*} reqUrl 조회 대상
+ * @param {*} date 조회 기간
+ * @returns API 조회 데이터
+ */
 const getData = async (reqUrl, date) => {
     const key = reqUrl.toUpperCase();
 
@@ -210,6 +230,10 @@ const getData = async (reqUrl, date) => {
     }
 }
 
+/**
+ * [사용 가능한 API 리스트 조회]
+ * @returns 사용 가능한 API 리스트
+ */
 const getApiList = () => {
     const API_LIST = Object.assign(INDEX_LIST, EXCHANGE_LIST);
     return API_LIST;
