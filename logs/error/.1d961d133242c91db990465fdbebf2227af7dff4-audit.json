@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\Seokbong\\Desktop\\workspace\\stock-index-server\\logs\\error\\.1d961d133242c91db990465fdbebf2227af7dff4-audit.json",
+    "files": [
+        {
+            "date": 1673919162477,
+            "name": "C:\\Users\\Seokbong\\Desktop\\workspace\\stock-index-server\\logs\\error\\2023-01-17.error.log",
+            "hash": "c680ca08482df0beaeebd05aed14d58939db82cbeefecbb16d0c3ed89078672c"
+        }
+    ],
+    "hashType": "sha256"
+}

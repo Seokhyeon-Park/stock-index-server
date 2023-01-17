@@ -1,9 +1,8 @@
 const express = require('express');
-const { chkUrl, getApiList } = require('./getSheet');
+const { getData, getApiList } = require('./api');
 const logger = require("./logger");
 const cors = require('cors');
 
-const datePattern = /[0-9]{8}-[0-9]{8}/;
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
@@ -11,69 +10,65 @@ app.use(cors());
 
 // API LIST
 // getApiList
-app.get('/', (req, res) => {
+app.get('/favicon.ico', (req, res) => {
+    
+});
+
+app.get('/', async (req, res) => {
     try {
-        res.send("use /api");
+        logger.info(`GET /`);
+        
+        const json = getApiList();
+        res.json(json);
     } catch (error) {
-        logger.info(error);
+        logger.error(error + `(${req.method} ${req.url})`);
+        res.status(500).send(`(${req.method} ${req.url}) ${error}`);
     }
 });
 
 app.get('/api', (req, res) => {
     try {
-        logger.info('GET /api');
+        logger.info(`GET /api`);
 
-        const api = getApiList();
-        res.json(api);
+        const json = getApiList();
+        res.json(json);
     } catch (error) {
-        logger.info(error);
+        logger.error(error + `(${req.method} ${req.url})`);
+        res.status(500).send(`(${req.method} ${req.url}) ${error}`);
     }
 });
 
 // Only index
-app.get('/:name', async (req, res) => {
+app.get('/:reqUrl', async (req, res) => {
     try {
-        logger.info(`GET /${req.params.name}`);
+        logger.info(`GET /${req.params.reqUrl}`);
 
-        // url 확인
-        const chk = await chkUrl(req.params.name);
-
-        if (typeof (chk) === 'string') {
-            res.json(chk);
-        } else {
-            res.status(500).send({ error: chk.toString() });
-        }
+        const json = await getData(req.params.reqUrl);
+        res.json(json);
     } catch (error) {
-        logger.info(error);
+        logger.error(error + `(${req.method} ${req.url})`);
+        res.status(500).send(`(${req.method} ${req.url}) ${error}`);
     }
 });
 
 // index with date
-app.get('/:name/:date', async (req, res) => {
+app.get('/:reqUrl/:date', async (req, res) => {
     try {
-        logger.info(`GET /${req.params.name}/${req.params.date}`);
+        logger.info(`GET /${req.params.reqUrl}/${req.params.date}`);
 
-        if (!datePattern.test(req.params.date)) {
-            const error = new Error(`${req.params.date} format is wrong`);
-            res.status(500).send({ error: error.toString() });
-        } else {
-            // url 확인
-            const chk = await chkUrl(req.params.name, req.params.date);
-
-            if (typeof (chk) === 'string') {
-                res.json(chk);
-            } else {
-                res.status(500).send({ error: chk.toString() });
-            }
-        }
+        const json = await getData(req.params.reqUrl, req.params.date);
+        res.json(json);
     } catch (error) {
-        logger.info(error);
+        logger.error(error + `(${req.method} ${req.url})`);
+        res.status(500).send(`(${req.method} ${req.url}) ${error}`);
     }
 });
 
 app.use((req, res, next) => {
-    const error = new Error(`${req.method} ${req.url} route not found`);
-    next(error);
+    if (req.url !== '/favicon.ico') {
+        const error = new Error(`${req.method} ${req.url} route not found`);
+        next(error);
+    }
 });
 
 app.listen(app.get('port'), () => {
