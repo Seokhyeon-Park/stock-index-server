@@ -169,10 +169,10 @@ const getExchangeRate = async (data, date) => {
 
         // data 적재
         for (const row of data) {
-            const rowDate = getDate(row.c[2].f);
+            const rowDate = getDate(row.c[0].f);
 
             if (dateFrom <= rowDate && dateTo >= rowDate) {
-                const rate = row.c[3].v;
+                const rate = row.c[1].v;
 
                 const obj = {
                         date: rowDate,
@@ -187,9 +187,9 @@ const getExchangeRate = async (data, date) => {
     } else {
         // data 적재
         for (const row of data) {
-            const rowDate = getDate(row.c[2].f);
+            const rowDate = getDate(row.c[0].f);
 
-            const rate = row.c[3].v;
+            const rate = row.c[1].v;
 
                 const obj = {
                         date: rowDate,
