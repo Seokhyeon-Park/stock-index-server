@@ -110,6 +110,7 @@ const getIndex = async (data, date) => {
         // data 적재
         for (const row of data) {
             const rowData = row.c;
+            console.log("rowData : " + rowData);
             const rowDate = getDate(rowData[0].f);
 
             if (dateFrom <= rowDate && dateTo >= rowDate) {
@@ -132,6 +133,7 @@ const getIndex = async (data, date) => {
         // data 적재
         for (const row of data) {
             const rowData = row.c;
+            console.log("rowData : " + rowData);
             const rowDate = getDate(rowData[0].f);
             const [open, high, low, close] = [rowData[1].v, rowData[2].v, rowData[3].v, rowData[4].v];
 
@@ -172,6 +174,7 @@ const getExchangeRate = async (data, date) => {
         // data 적재
         for (const row of data) {
             const rowData = row.c;
+            console.log("rowData : " + rowData);
             const rowDate = getDate(rowData[0].f);
 
             if (dateFrom <= rowDate && dateTo >= rowDate) {
@@ -191,6 +194,7 @@ const getExchangeRate = async (data, date) => {
         // data 적재
         for (const row of data) {
             const rowData = row.c;
+            console.log("rowData : " + rowData);
             const rowDate = getDate(rowData[0].f);
 
             const rate = rowData[1].v;
