@@ -109,10 +109,11 @@ const getIndex = async (data, date) => {
 
         // data 적재
         for (const row of data) {
-            const rowDate = getDate(row.c[0].f);
+            const rowData = row.c;
+            const rowDate = getDate(rowData[0].f);
 
             if (dateFrom <= rowDate && dateTo >= rowDate) {
-                const [open, high, low, close] = [row.c[1].v, row.c[2].v, row.c[3].v, row.c[4].v];
+                const [open, high, low, close] = [rowData[1].v, rowData[2].v, rowData[3].v, rowData[4].v];
 
                 const obj = {
                     date: rowDate,
@@ -130,9 +131,9 @@ const getIndex = async (data, date) => {
     } else {
         // data 적재
         for (const row of data) {
-            const data = row.c;
-            const rowDate = getDate(data[0].f);
-            const [open, high, low, close] = [data[1].v, data[2].v, data[3].v, data[4].v];
+            const rowData = row.c;
+            const rowDate = getDate(rowData[0].f);
+            const [open, high, low, close] = [rowData[1].v, rowData[2].v, rowData[3].v, rowData[4].v];
 
             const obj = {
                 date: rowDate,
@@ -170,10 +171,11 @@ const getExchangeRate = async (data, date) => {
 
         // data 적재
         for (const row of data) {
-            const rowDate = getDate(row.c[0].f);
+            const rowData = row.c;
+            const rowDate = getDate(rowData[0].f);
 
             if (dateFrom <= rowDate && dateTo >= rowDate) {
-                const rate = row.c[1].v;
+                const rate = rowData[1].v;
 
                 const obj = {
                         date: rowDate,
@@ -188,9 +190,10 @@ const getExchangeRate = async (data, date) => {
     } else {
         // data 적재
         for (const row of data) {
-            const rowDate = getDate(row.c[0].f);
+            const rowData = row.c;
+            const rowDate = getDate(rowData[0].f);
 
-            const rate = row.c[1].v;
+            const rate = rowData[1].v;
 
                 const obj = {
                         date: rowDate,
